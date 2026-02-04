@@ -31,7 +31,7 @@ export default function CameraInput({ onAnalyze }) {
         videoRef.current.srcObject = mediaStream
       }
     } catch (err) {
-      alert('Camera access denied or not available. Please use upload instead.')
+      alert('Camera access denied or not available. Please use upload instead.' + err)
     }
   }
 
