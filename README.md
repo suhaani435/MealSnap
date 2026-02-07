@@ -41,14 +41,8 @@ Follow these steps to set up the project locally.
 
  Clone the repository (or navigate to the folder) and install dependencies for both frontend and backend.
 
-**Frontend:**
+**Install Dependencies (Root):**
 ```bash
-npm install
-```
-
-**Backend:**
-```bash
-cd backend
 npm install
 ```
 
@@ -74,8 +68,7 @@ You need to run the backend and frontend in separate terminals.
 
 **Terminal 1 (Backend):**
 ```bash
-cd backend
-node server.js
+npm run start:backend
 ```
 *You should see: `Server running on port 5000`*
 
