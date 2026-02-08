@@ -1,121 +1,92 @@
-# 🥗 Code Snapper -- AI Calorie & Meal Analyzer (React)
+# 🥗 MealSnap - AI Food Nutrition Analyzer
 
-Code Snapper is a React-based AI web application that analyzes meal
-photos to estimate calorie intake, suggest recommended meals, and track
-daily nutrition using a dynamic calorie progress bar.
+MealSnap is a smart web application that uses Google's advanced **Gemini AI** to analyze food images and provide instant nutritional breakdowns. Simply snap a photo or upload an image to get protein, carbs, fats, and calorie counts in seconds.
 
-------------------------------------------------------------------------
+## ✨ Features
 
-## 🚀 Features
+- **AI-Powered Analysis**: Uses Google's Gemini models (via `@google/genai` SDK) to recognize food items.
+- **Detailed Nutrition**: Provides weight estimation, macronutrients (Protein, Carbs, Fats), and Calories.
+- **Instant Feedack**: Fast processing with the `gemini-2.0-flash` model.
+- **Modern UI**: Clean, responsive interface built with React and Vite.
 
-✅ Upload meal photos for AI analysis\
-✅ Automatic calorie estimation\
-✅ Smart meal recommendations\
-✅ Daily calorie tracking\
-✅ Animated calorie progress bar\
-✅ Responsive modern UI built with React
+## 🛠️ Tech Stack
 
-------------------------------------------------------------------------
-
-## 🧠 How It Works
-
-1.  User uploads or captures a meal image.
-2.  AI detects food items from the image.
-3.  Calories are calculated using a nutrition database/API.
-4.  The app updates:
-    -   Total calories consumed
-    -   Recommended meals
-    -   Daily calorie progress bar in real-time.
-
-------------------------------------------------------------------------
-
-## ⚛️ Tech Stack
-
-### Frontend
-
--   React.js
--   Tailwind CSS
--   JavaScript (ES6+)
--   React Hooks
-
-### Backend (Optional)
-
--   Node.js / Express API
-
-### AI / APIs
-
--   Image recognition model
--   Nutrition & calorie API
-
-------------------------------------------------------------------------
+- **Frontend**: React, Vite, CSS Modules
+- **Backend**: Node.js, Express.js, Multer (File Uploads)
+- **AI Engine**: Google Gemini API (`@google/genai`)
 
 ## 📂 Project Structure
 
-    code-snapper/
-    │
-    ├── public/
-    ├── src/
-    │   ├── components/
-    │   │   ├── ImageUploader.jsx
-    │   │   ├── CalorieProgressBar.jsx
-    │   │   ├── MealRecommendations.jsx
-    │   │   └── Navbar.jsx
-    │   │
-    │   ├── pages/
-    │   ├── utils/
-    │   ├── App.jsx
-    │   └── main.jsx
-    │
-    ├── package.json
-    └── README.md
-
-------------------------------------------------------------------------
-
-## ⚙️ Installation & Setup
-
-``` bash
-# Clone repository
-git clone https://github.com/your-username/code-snapper.git
-
-# Go to project folder
-cd code-snapper
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
+```bash
+MealSnap/
+├── src/                # Frontend React Application
+│   ├── App.jsx         # Main UI Logic
+│   ├── components/     # Reusable Components (CameraInput, etc.)
+│   └── index.css       # Global Styles
+├── backend/            # Express Backend Server
+│   ├── server.js       # API Endpoints & AI Integration
+│   ├── uploads/        # Temp storage for image analysis
+│   └── .env            # API Keys & Config
+└── public/             # Static Assets
 ```
 
-------------------------------------------------------------------------
+## 🚀 Getting Started
 
-## 📸 Usage
+Follow these steps to set up the project locally.
 
-1.  Open the app in your browser.
-2.  Upload a meal photo.
-3.  View:
-    -   Estimated calorie intake
-    -   Suggested meals
-    -   Updated calorie progress bar.
+### 1. Prerequisites
+- **Node.js** (v14 or higher) installed on your machine.
 
-------------------------------------------------------------------------
+### 2. Installation
 
-## 🎯 Future Improvements
+ Clone the repository (or navigate to the folder) and install dependencies for both frontend and backend.
 
--   User authentication & profiles
--   Personalized diet plans
--   Weekly calorie analytics dashboard
--   Mobile app version
+**Install Dependencies (Root):**
+```bash
+npm install
+```
 
-------------------------------------------------------------------------
+### 3. 🔑 **IMPORTANT: API Key Setup**
 
-## 🤝 Contributing
+To use the AI features, you need your own Google Gemini API Key.
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss improvements.
+1.  Go to [Google AI Studio](https://aistudio.google.com/).
+2.  Click **"Get API key"** and create a key for a new or existing project.
+3.  Copy the API Key string.
+4.  In the `backend/` folder, create a file named `.env` (if it doesn't exist).
+5.  Add your key to the file like this:
 
-------------------------------------------------------------------------
+    ```env
+    API_KEY=AIzaSy...PasteYourKeyHere...
+    PORT=5000
+    ```
+    *(Replace `AIzaSy...` with your actual copied key)*
 
-## 📄 License
+### 4. Running the App
 
-This project is licensed under the MIT License.
+You need to run the backend and frontend in separate terminals.
+
+**Terminal 1 (Backend):**
+```bash
+npm run start:backend
+```
+*You should see: `Server running on port 5000`*
+
+**Terminal 2 (Frontend):**
+```bash
+npm run dev
+```
+*Open your browser at the URL shown (usually `http://localhost:5173`)*
+
+---
+
+## 🧪 Testing
+
+We have included a test script to verify the backend without the frontend.
+```bash
+cd backend
+node test_upload.js
+```
+
+## 📝 License
+This project is for educational purposes.
