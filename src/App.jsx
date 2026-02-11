@@ -36,7 +36,7 @@ function App() {
 
       formData.append('image', blob, 'capture.jpg')
 
-      const res = await fetch('http://localhost:5000/api/analyze', {
+      const res = await fetch('/api/analyze', {
         method: 'POST',
         body: formData
       })
