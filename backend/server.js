@@ -1,9 +1,10 @@
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const { GoogleGenAI } = require('@google/genai');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -11,6 +12,9 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // Multer setup for file uploads
 const upload = multer({ dest: 'uploads/' });
@@ -97,6 +101,12 @@ app.post('/api/analyze', upload.single('image'), async (req, res) => {
             stack: error.stack
         });
     }
+});
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
 app.listen(port, () => {
