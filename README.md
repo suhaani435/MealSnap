@@ -2,6 +2,8 @@
 
 MealSnap is a smart web application that uses Google's advanced **Gemini AI** to analyze food images and provide instant nutritional breakdowns. Simply snap a photo or upload an image to get protein, carbs, fats, and calorie counts in seconds.
 
+Deployed at: https://mealsnap.onrender.com/
+
 ## ✨ Features
 
 - **AI-Powered Analysis**: Uses Google's Gemini models (via `@google/genai` SDK) to recognize food items.
@@ -90,3 +92,4 @@ node test_upload.js
 
 ## 📝 License
 This project is for educational purposes.
+
