@@ -1,10 +1,10 @@
+const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const { GoogleGenAI } = require('@google/genai');
 const fs = require('fs');
-const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -60,7 +60,7 @@ app.post('/api/analyze', upload.single('image'), async (req, res) => {
 
         // Use the new SDK's generateContent method
         const response = await ai.models.generateContent({
-            model: "gemini-2.0-flash", // Using a stable 2.0 model as requested/implied by the move to new SDK
+            model: "gemini-2.0-flash",
             contents: [
                 {
                     role: "user",
@@ -77,15 +77,17 @@ app.post('/api/analyze', upload.single('image'), async (req, res) => {
             ]
         });
 
-        // The response structure in the new SDK is slightly different
-        // response.text() is a helper, but sometimes you access response.candidates[0].content.parts[0].text
-        const text = response.text; // In the new SDK, .text might be a getter or property on the response object directly if helper exists, or we check docs. 
-        // Based on user snippet: console.log(response.text); -> It seems to be a property.
+        const validResponse = response && response.candidates && response.candidates[0] && response.candidates[0].content && response.candidates[0].content.parts && response.candidates[0].content.parts[0];
+        const text = validResponse ? validResponse.text : "";
 
         console.log('Gemini Response:', text);
 
-        // Clean up response if it contains markdown code blocks
-        const jsonStr = text.replace(/```json\n?|\n?```/g, '').trim();
+        // Robust JSON extraction
+        const jsonMatch = text.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) {
+            throw new Error("No JSON found in response");
+        }
+        const jsonStr = jsonMatch[0];
         const data = JSON.parse(jsonStr);
 
         res.json(data);
@@ -105,7 +107,7 @@ app.post('/api/analyze', upload.single('image'), async (req, res) => {
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get('*', (req, res) => {
+app.get(/(.*)/, (req, res) => {
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
